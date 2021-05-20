@@ -3,22 +3,28 @@ import java.util.Collections;
 import java.util.List;
 
 public class App {
+    public static Long requiredCharactersInPhrase;
 
     public static void main(String[] args) throws IOException {
-        Service service = new Service();
-        String phrase = service.readFile("phrase.txt");
-        String word = service.getWord();
+        StringHelper stringHelper = new StringHelper();
+        CombinationFinder combinationFinder = new CombinationFinder();
+        DataReader dataReader = new DataReader();
+        DataWriter dataWriter = new DataWriter(stringHelper);
 
-//        String word = "Logic".toLowerCase();
-//        String phrase = "I love to work in global logic!".toLowerCase();
+        String phrase = dataReader.readFile("phrase.txt");
+        String word = dataReader.getWord();
+//        String word = "Logic!";
+//        String phrase = "I love to work in global logic!";
 
-        phrase = service.removeSpecialChars(phrase);
-        Combination.requiredCharactersInPhrase = service.countRequiredCharacters(phrase, word);
+        word = stringHelper.wordSetup(word);
+        phrase = stringHelper.phraseSetUp(phrase);
 
-        List<Combination> combinationList = service.findCombinations(phrase, word);
+        requiredCharactersInPhrase = stringHelper.countRequiredCharacters(phrase, word);
+
+        List<Combination> combinationList = combinationFinder.findCombinations(phrase, word);
 
         Collections.sort(combinationList);
-        service.printResult(phrase, combinationList);
-        service.writeResultToFile(phrase, combinationList);
+        dataWriter.printResult(phrase, combinationList);
+        dataWriter.writeResultToFile(phrase, combinationList);
     }
 }

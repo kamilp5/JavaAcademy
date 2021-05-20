@@ -4,8 +4,6 @@ import java.util.Objects;
 
 public class Combination implements Comparable<Combination> {
 
-    public static Long requiredCharactersInPhrase;
-
     private List<Character> chars = new ArrayList<>();
     private int sizeOfTheWord;
     private int charCount;
@@ -51,16 +49,17 @@ public class Combination implements Comparable<Combination> {
     }
 
     public void calculateFrequency() {
-        frequency = (double) charCount / requiredCharactersInPhrase;
+        frequency = (double) charCount / App.requiredCharactersInPhrase;
     }
 
     @Override
     public String toString() {
-        return "{" +
-                chars.toString().replace("[", "(").replace("]", ")") +
-                ", " + sizeOfTheWord + "}" +
-                " = " + Math.round(frequency * 100.0) / 100.0 + " (" +
-                charCount + "/" + requiredCharactersInPhrase + ")";
+        return "Combination{" +
+                "chars=" + chars +
+                ", sizeOfTheWord=" + sizeOfTheWord +
+                ", charCount=" + charCount +
+                ", frequency=" + frequency +
+                '}';
     }
 
     @Override
